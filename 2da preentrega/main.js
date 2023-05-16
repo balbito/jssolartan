@@ -1,5 +1,41 @@
-alert("Ingrese el producto que desea comprar, si desea salir ingrese 0");
-let seleccionarProducto = parseInt(prompt("1-manta solar $2000 2-termotanque solar $4000 3-bomba solar $6000 4-panel solar $8000"))
+// Clase productos
+
+class Producto {
+    constructor(producto, precio) {
+        this.producto = producto;
+        this.precio = precio;
+    }
+    sumaIVA() {
+        this.precio = this.precio * 1.21;
+    }
+}
+
+const productos = [];
+
+productos.push(new Producto("Manta Solar", 2000));
+productos.push(new Producto("Termotanque Solar", 4000));
+productos.push(new Producto("Bomba Solar", 6000));
+productos.push(new Producto("Panel Solar", 8000));
+
+
+
+for (const producto of productos)
+    producto.sumaIVA();
+
+console.log(productos);
+
+function menu() {
+    alert(`Bienvenido a Solartan`)
+    let opcion = parseInt(
+        prompt(
+            `Ingrese una opcion: \n 1) Elegir producto \n 2) Agregar producto \n 3) Eliminar producto \n 4) Salir`
+        )
+    );
+    return opcion;
+}
+
+function elegirProducto() {
+    let seleccionarProducto = parseInt(prompt("1-manta solar $2000 2-termotanque solar $4000 3-bomba solar $6000 4-panel solar $8000"))
 let seleccionarCantidad;
 let total = 0;
 
@@ -59,5 +95,42 @@ const metodoDePago = () => {
 }
 
 metodoDePago();
+}
 
+function agregarProducto() {
+    let producto = prompt("Agregue el producto");
+    let articulo = new Producto (producto, precio);
+    productos.push(articulo);
+    console.log(productos);
+}
 
+function eliminarProducto() {
+    let producto = prompt("Elimine el producto");
+    let articulo = productos.find((articulo) => articulo.producto === producto);
+    let indice = productos.indexOf(articulo);
+    productos.splice(indice, 2);
+    console.log(productos);
+}
+
+function salir() {
+    alert("Ojala hayas tenido una buena experiencia");
+}
+
+let opcion = menu();
+switch (opcion) {
+    case 1:
+        elegirProducto();
+        break;
+    case 2:
+        agregarProducto();
+        break;
+    case 3: 
+        eliminarProducto();
+        break;
+    case 4:
+        salir();
+        break;        
+    default:
+        alert("Esa opcion no esta disponible")
+        break;
+}
