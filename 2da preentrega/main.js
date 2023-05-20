@@ -113,7 +113,7 @@ function eliminarProducto() {
     let producto = prompt("Elimine el producto");
     let articulo = productos.find((articulo) => articulo.producto === producto);
     let indice = productos.indexOf(articulo);
-    productos.splice(indice, 2);
+    productos.splice(indice, 1);
     console.log(productos);
 }
 
