@@ -9,21 +9,26 @@ const cantidad = (unidad, precio) => {
 
 while (seleccionarProducto !== 0) {
     switch (seleccionarProducto) {
+        
         case 1:
             seleccionarCantidad = parseInt(prompt("el producto seleccionado es manta solar, indique la cantidad"))
             total += cantidad(seleccionarCantidad, 2000)
+             seleccionarProducto = 0	
             break;
         case 2:
             seleccionarCantidad = parseInt(prompt("el producto seleccionado es termotanque solar, indique la cantidad"))
             total += cantidad(seleccionarCantidad, 4000)
+             seleccionarProducto = 0	
             break;
         case 3:
             seleccionarCantidad = parseInt(prompt("el producto seleccionado es bomba solar, indique la cantidad"))
             total += cantidad(seleccionarCantidad, 6000)
+             seleccionarProducto = 0	
             break;
         case 4:
             seleccionarCantidad = parseInt(prompt("el producto seleccionado es panel solar, indique la cantidad"))
             total += cantidad(seleccionarCantidad, 8000)
+             seleccionarProducto = 0	
             break;
 
         default:
