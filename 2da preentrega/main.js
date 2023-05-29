@@ -104,6 +104,7 @@ function elegirProducto() {
 
 function agregarProducto() {
     let producto = prompt("Agregue el producto");
+    let precio = prompt("Ingrese el precio")
     let articulo = new Producto(producto, precio);
     productos.push(articulo);
     console.log(productos);
