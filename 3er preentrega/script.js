@@ -89,6 +89,14 @@ const eliminarDelCarrito = (id) => {
     actualizarCarrito();
 };
 
+
+const vaciarCarrito = document.getElementById('vaciarCarrito');
+vaciarCarrito.addEventListener('click', () => {
+    carrito.splice(0, carrito.length);
+    localStorage.setItem("producto", JSON.stringify(productos));
+    actualizarCarrito();
+});
+
 const totalCompra = document.getElementById('totalCompra');
 
 const calcularTotalCompra = () => {
