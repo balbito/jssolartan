@@ -8,14 +8,14 @@ class Producto {
     }
 }
 
-const producto1 = new Producto(1 , 'Manta Solar', 20000, 1, './images/4-png.png');
-const producto2 = new Producto(2 , 'Termotanque Solar', 30000, 1, './images/3-png.png');
-const producto3 = new Producto(3 , 'Bomba Solar', 10000, 1, './images/1-png.png');
-const producto4 = new Producto(4 , 'Panel Solar', 15000, 1, './images/2-png.png');
+const producto1 = new Producto(1, 'Manta Solar', 20000, 1, './images/4-png.png');
+const producto2 = new Producto(2, 'Termotanque Solar', 30000, 1, './images/3-png.png');
+const producto3 = new Producto(3, 'Bomba Solar', 10000, 1, './images/1-png.png');
+const producto4 = new Producto(4, 'Panel Solar', 15000, 1, './images/2-png.png');
 
 const productos = [producto1, producto2, producto3, producto4];
 
-localStorage.setItem("producto", JSON.stringify(productos));
+
 
 // DOM
 
@@ -41,19 +41,19 @@ productos.forEach((producto) => {
 });
 
 // CREO CARRITO
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-const carrito = [];
 
 const agregarAlCarrito = (id) => {
-     const productos = JSON.parse(localStorage.getItem("producto"));
-     const producto = productos.find((producto) => producto.id === id);
-     const productoEnCarrito = carrito.find((producto) => producto.id === id);
-     if (productoEnCarrito) {
+    const productos = JSON.parse(localStorage.getItem("producto"));
+    const producto = productos.find((producto) => producto.id === id);
+    const productoEnCarrito = carrito.find((producto) => producto.id === id);
+    if (productoEnCarrito) {
         productoEnCarrito.cantidad++;
     } else {
         carrito.push(producto);
     }
-    localStorage.setItem("producto", JSON.stringify(productos));
+    localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarrito();
 }
 
@@ -79,13 +79,13 @@ function actualizarCarrito() {
     })
     contenedorCarrito.innerHTML = aux;
     calcularTotalCompra();
-} 
+}
 
 const eliminarDelCarrito = (id) => {
     const productos = JSON.parse(localStorage.getItem("producto"));
     const producto = carrito.find((producto) => producto.id === id);
     carrito.splice(carrito.indexOf(producto), 1);
-    localStorage.setItem("producto", JSON.stringify(productos));
+    localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarrito();
 };
 
@@ -93,7 +93,7 @@ const eliminarDelCarrito = (id) => {
 const vaciarCarrito = document.getElementById('vaciarCarrito');
 vaciarCarrito.addEventListener('click', () => {
     carrito.splice(0, carrito.length);
-    localStorage.setItem("producto", JSON.stringify(productos));
+    localStorage.removeItem('carrito', JSON.stringify(carrito));
     actualizarCarrito();
 });
 
