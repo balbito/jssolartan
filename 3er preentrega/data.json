@@ -1,0 +1,30 @@
+[
+{
+    "id": 1,
+    "nombre": "Manta Solar",
+    "precio": 20000,
+    "imagen": "./images/4-png.png",
+    "cantidad": 1
+  },
+  {
+    "id": 2,
+    "nombre": "Termotanque Solar",
+    "precio": 30000,
+    "imagen": "./images/3-png.png",
+    "cantidad": 1
+  },
+  {
+     "id": 3,
+     "nombre": "Bomba Solar",
+     "precio": 10000,
+     "imagen": "./images/1-png.png",
+     "cantidad": 1
+  },
+  {
+     "id": 4,
+     "nombre": "Panel Solar",
+     "precio": 15000,
+     "imagen": "./images/2-png.png",
+     "cantidad": 1
+  }
+]

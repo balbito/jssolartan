@@ -6,9 +6,13 @@ body {
     margin: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #507255;
+    text-align: center;
 }
 
 h1 {
+    display: flex;
+    justify-content: center;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 5rem;    
 };
+

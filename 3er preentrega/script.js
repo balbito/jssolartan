@@ -1,48 +1,38 @@
-class Producto {
-    constructor(id, nombre, precio, cantidad, imagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.cantidad = cantidad;
-        this.imagen = imagen;
-    }
-}
-
-const producto1 = new Producto(1, 'Manta Solar', 20000, 1, './images/4-png.png');
-const producto2 = new Producto(2, 'Termotanque Solar', 30000, 1, './images/3-png.png');
-const producto3 = new Producto(3, 'Bomba Solar', 10000, 1, './images/1-png.png');
-const producto4 = new Producto(4, 'Panel Solar', 15000, 1, './images/2-png.png');
-
-const productos = [producto1, producto2, producto3, producto4];
-
-
-
-// DOM
-
+const listadoProductos = './data.json'
 const contenedorProductos = document.getElementById('contenedorProductos');
 
-productos.forEach((producto) => {
-    const divProducto = document.createElement('div');
-    divProducto.classList.add('card', 'col-xl-3', 'col-md-6', 'col-sm-12');
-    divProducto.innerHTML = `
-                               <div>
+fetch(listadoProductos)
+     .then((respuesta) => respuesta.json())
+     .then((datos) => {
+        console.log(datos);
+        mostrarProductos(datos);
+     })
+     .catch((error) => console.log(error));
+
+function mostrarProductos(productos){
+    productos.forEach((producto) => {
+        const divProducto = document.createElement('div');
+        divProducto.classList.add('card', 'col-xl-3', 'col-md-6', 'col-sm-12');
+        divProducto.innerHTML = `
+                                 <div>
                                     <img src="${producto.imagen}" class="card-img-top img-fluid py-3">
                                     <div class="card-body">
-                                       <h3 class="card-title"> ${producto.nombre} </h3>
-                                       <p class="card-text"> ${producto.precio} </p>
-                                       <button id="boton${producto.id}" class="btn btn-primary"> Agregar al Carrito </button>
+                                        <h3 class="card-title"> ${producto.nombre} </h3>
+                                        <p class="card-text"> ${producto.precio} </p>
+                                        <button id="boton${producto.id}" class="btn btn-primary"> Agregar al Carrito </button>
                                     </div>
-                               </div>`;
-    contenedorProductos.appendChild(divProducto);
-    const boton = document.getElementById(`boton${producto.id}`);
-    boton.addEventListener('click', () => {
-        agregarAlCarrito(producto.id);
-    })
-});
+                                 </div>`;
+        contenedorProductos.appendChild(divProducto);
+        const boton = document.getElementById(`boton${producto.id}`);
+        boton.addEventListener('click', () => {
+            agregarAlCarrito(producto.id);
+        })
+    });
+}
+
 
 // CREO CARRITO
 const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
 
 const agregarAlCarrito = (id) => {
     const productos = JSON.parse(localStorage.getItem("producto"));
@@ -54,6 +44,11 @@ const agregarAlCarrito = (id) => {
         carrito.push(producto);
     }
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    Swal.fire(
+        "Agregaste un nuevo producto a tu carrito:",
+        id.nombre,
+        "success"
+    );
     actualizarCarrito();
 }
 
@@ -67,19 +62,23 @@ verCarrito.addEventListener('click', actualizarCarrito);
 function actualizarCarrito() {
     let aux = '';
     carrito.forEach((producto) => {
-        aux += `<div class="card col-xl-3 col-md-6 col-sm-12">
-        <img src="${producto.imagen}" class="card-img-top img-fluid py-3">
-        <div class="card-body">
-            <h3 class="card-title"> ${producto.nombre} </h3>
-            <p class="card-text"> ${producto.precio} </p>
-            <button onClick = "eliminarDelCarrito(${producto.id})" class="btn btn-primary"> Eliminar del Carrito </button>
+        aux += `
+        <div class="card col-xl-3 col-md-6 col-sm-12">
+            <img src="${producto.imagen}" class="card-img-top img-fluid py-3">
+            <div class="card-body">
+              <h3 class="card-title"> ${producto.nombre} </h3>
+              <p class="card-text"> ${producto.precio} </p>
+              <p> ${producto.cantidad}</p>
+              <button onClick = "eliminarDelCarrito(${producto.id})" class="btn btn-primary"> Eliminar del Carrito </button>
+            </div>
         </div>
-    </div>
-    `;
-    })
-    contenedorCarrito.innerHTML = aux;
-    calcularTotalCompra();
+        `;
+        })
+        contenedorCarrito.innerHTML = aux;
+        calcularTotalCompra();
 }
+
+
 
 const eliminarDelCarrito = (id) => {
     const productos = JSON.parse(localStorage.getItem("producto"));
@@ -88,7 +87,6 @@ const eliminarDelCarrito = (id) => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarrito();
 };
-
 
 const vaciarCarrito = document.getElementById('vaciarCarrito');
 vaciarCarrito.addEventListener('click', () => {
